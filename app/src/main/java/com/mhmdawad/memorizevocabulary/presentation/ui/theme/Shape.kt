@@ -1,4 +1,4 @@
-package com.mhmdawad.memorizevocabulary.ui.theme
+package com.mhmdawad.memorizevocabulary.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

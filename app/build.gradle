@@ -64,7 +64,6 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
-
     //Room database
     def roomVersion = "2.4.2"
     implementation "androidx.room:room-runtime:$roomVersion"

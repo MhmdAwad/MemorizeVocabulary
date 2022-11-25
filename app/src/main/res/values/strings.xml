@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MemorizeVocabulary</string>
+    <string name="no_vocabularies">No vocabularies added yet.</string>
 </resources>

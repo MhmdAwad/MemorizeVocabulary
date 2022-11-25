@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "vocabularyModule")
 data class VocabularyModule(
     @PrimaryKey
-    val englishVocabulary: String,
-    val nativeVocabulary: String,
+    val englishVocabulary: String = "",
+    val nativeVocabulary: String = "",
 )

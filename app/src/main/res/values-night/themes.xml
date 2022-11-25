@@ -2,7 +2,8 @@
 <resources>
 
     <style name="Theme.MemorizeVocabulary" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/dark_grey</item>
+        <item name="android:windowLightStatusBar">false</item>
+
     </style>
 </resources>

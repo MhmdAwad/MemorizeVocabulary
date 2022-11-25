@@ -17,17 +17,22 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mhmdawad.memorizevocabulary.R
+import com.mhmdawad.memorizevocabulary.presentation.destinations.AddNewVocabularyDestination
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyCard
+import com.mhmdawad.memorizevocabulary.presentation.new_vocabulary.AddNewVocabulary
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination(start = true)
 @Composable
 fun MemorizeScreen(
-    modifier: Modifier = Modifier,
+    navigator: DestinationsNavigator,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(onClick = {
-
+                navigator.navigate(AddNewVocabularyDestination())
             }) {
                 Icon(Icons.Filled.Add,
                     null,
@@ -38,7 +43,7 @@ fun MemorizeScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = it.calculateBottomPadding()),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -49,7 +54,9 @@ fun MemorizeScreen(
                     .fillMaxHeight(),
                     contentAlignment = Alignment.Center
                 ) {
-                    VocabularyCard(modifier = modifier)
+                    VocabularyCard(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(350.dp))
                 }
             }
         })

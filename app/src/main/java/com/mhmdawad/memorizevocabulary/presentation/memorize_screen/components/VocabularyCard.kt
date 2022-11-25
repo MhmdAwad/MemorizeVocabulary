@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mhmdawad.memorizevocabulary.R
-import com.mhmdawad.memorizevocabulary.domain.module.VocabularyModule
 import com.mhmdawad.memorizevocabulary.presentation.MemorizeViewModel
 
 @OptIn(ExperimentalFoundationApi::class)

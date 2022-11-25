@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.mhmdawad.memorizevocabulary.domain.module.VocabularyModule
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.MemorizeScreen
 import com.mhmdawad.memorizevocabulary.presentation.ui.theme.MemorizeVocabularyTheme
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,11 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MemorizeVocabularyTheme {
-                    MemorizeScreen(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(350.dp)
-                    )
+                    DestinationsNavHost(NavGraphs.root)
                 }
         }
     }

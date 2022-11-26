@@ -90,4 +90,7 @@ dependencies {
     implementation 'io.github.raamcosta.compose-destinations:core:1.7.27-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.7.27-beta'
 
+    // Splash screen Api
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
 }

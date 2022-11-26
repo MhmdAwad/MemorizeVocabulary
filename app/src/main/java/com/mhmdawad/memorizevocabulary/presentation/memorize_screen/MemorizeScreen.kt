@@ -11,12 +11,16 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mhmdawad.memorizevocabulary.R
+import com.mhmdawad.memorizevocabulary.presentation.MemorizeViewModel
 import com.mhmdawad.memorizevocabulary.presentation.destinations.AddNewVocabularyDestination
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyCard
+import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyData
 import com.mhmdawad.memorizevocabulary.presentation.ui.theme.Typography
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -26,19 +30,22 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun MemorizeScreen(
     navigator: DestinationsNavigator,
+    memorizeViewModel: MemorizeViewModel = hiltViewModel(),
 ) {
+    val randomVocabulary = memorizeViewModel.randomVocabularyState
+    val memorizeState = memorizeViewModel.memorizeState
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                backgroundColor = Color.DarkGray,
+                backgroundColor = DarkGray,
                 onClick = {
-                navigator.navigate(AddNewVocabularyDestination())
-            }) {
+                    navigator.navigate(AddNewVocabularyDestination())
+                }) {
                 Icon(Icons.Filled.Add,
                     null,
-                    tint = Color.White)
+                    tint = White)
             }
         },
         content = {
@@ -55,7 +62,7 @@ fun MemorizeScreen(
                 Text(
                     text = stringResource(id = R.string.app_name),
                     style = Typography.body1,
-                    color = if (isSystemInDarkTheme()) Color.White else Color.DarkGray,
+                    color = if (isSystemInDarkTheme()) White else DarkGray,
                 )
                 Box(modifier = Modifier
                     .fillMaxHeight(),
@@ -64,7 +71,19 @@ fun MemorizeScreen(
                     VocabularyCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(350.dp)
+                            .height(350.dp),
+                        front = {
+                            VocabularyData(
+                                memorizeState = memorizeState,
+                                vocabularyText = randomVocabulary.vocabulary.englishVocabulary
+                            )
+                        },
+                        back = {
+                            VocabularyData(
+                                memorizeState = memorizeState,
+                                vocabularyText = randomVocabulary.vocabulary.nativeVocabulary
+                            )
+                        },
                     )
                 }
             }

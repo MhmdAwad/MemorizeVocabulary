@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,11 +25,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun VocabularyCard(
+    front: @Composable () -> Unit,
+    back: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     memorizeViewModel: MemorizeViewModel = hiltViewModel(),
 ) {
-    val randomVocabulary = memorizeViewModel.randomVocabularyState
-    val memorizeState = memorizeViewModel.memorizeState
+
     var cardFace by remember { mutableStateOf(CardFace.Front) }
     val coroutineScope = rememberCoroutineScope()
 
@@ -46,44 +48,10 @@ fun VocabularyCard(
             .clip(RoundedCornerShape(12.dp))
             .aspectRatio(1f),
         back = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.DarkGray),
-                contentAlignment = Alignment.Center
-            ) {
-                if (memorizeState.isLoading)
-                    CircularProgressIndicator()
-
-                if (memorizeState.isNoVocabularies)
-                    Text(text = stringResource(id = R.string.no_vocabularies),
-                        style = Typography.body1)
-
-                if (memorizeState.vocabularies.isNotEmpty())
-                    Text(text = randomVocabulary.vocabulary.nativeVocabulary,
-                        style = Typography.body1)
-
-            }
+            back()
         },
         front = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.DarkGray),
-                contentAlignment = Alignment.Center
-            ) {
-                if (memorizeState.isLoading)
-                    CircularProgressIndicator()
-
-                if (memorizeState.isNoVocabularies)
-                    Text(text = stringResource(id = R.string.no_vocabularies),
-                        style = Typography.body1)
-
-                if (memorizeState.vocabularies.isNotEmpty())
-                    Text(text = randomVocabulary.vocabulary.englishVocabulary,
-                        style = Typography.body1)
-
-            }
+            front()
         }
     )
 }

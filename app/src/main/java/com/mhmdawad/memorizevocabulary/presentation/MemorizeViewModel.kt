@@ -35,9 +35,9 @@ class MemorizeViewModel @Inject constructor(
         memorizeRepository.retrieveAllVocabularies()
             .onEach {
                 memorizeState = if (it.isNotEmpty()) {
-                    MemorizeScreenState(vocabularies = it)
+                    memorizeState.copy(vocabularies = it, isNoVocabularies = false)
                 } else {
-                    MemorizeScreenState(isNoVocabularies = true)
+                    memorizeState.copy(isNoVocabularies = true)
                 }
                 getRandomVocabulary()
             }.launchIn(viewModelScope)
@@ -45,7 +45,10 @@ class MemorizeViewModel @Inject constructor(
 
     fun getRandomVocabulary() {
         if (memorizeState.isNoVocabularies) return
-        randomVocabularyState = RandomVocabularyState(memorizeState.vocabularies.random())
+        viewModelScope.launch {
+            memorizeState = memorizeState.copy(isLoading = false)
+            randomVocabularyState = RandomVocabularyState(memorizeState.vocabularies.random())
+        }
     }
 
     fun rotateVocabulary() {

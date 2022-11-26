@@ -12,12 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.mhmdawad.memorizevocabulary.R
-import com.mhmdawad.memorizevocabulary.presentation.MemorizeViewModel
 import com.mhmdawad.memorizevocabulary.presentation.destinations.AddNewVocabularyDestination
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyCard
 import com.mhmdawad.memorizevocabulary.presentation.ui.theme.Typography
@@ -29,18 +26,19 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun MemorizeScreen(
     navigator: DestinationsNavigator,
-    memorizeViewModel: MemorizeViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(onClick = {
+            FloatingActionButton(
+                backgroundColor = Color.DarkGray,
+                onClick = {
                 navigator.navigate(AddNewVocabularyDestination())
             }) {
                 Icon(Icons.Filled.Add,
                     null,
-                    tint = if (isSystemInDarkTheme()) Color.DarkGray else Color.White)
+                    tint = Color.White)
             }
         },
         content = {

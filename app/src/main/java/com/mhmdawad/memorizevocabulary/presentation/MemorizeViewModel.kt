@@ -10,8 +10,8 @@ import com.mhmdawad.memorizevocabulary.domain.module.VocabularyModule
 import com.mhmdawad.memorizevocabulary.domain.repository.MemorizeRepository
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.MemorizeScreenState
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.RandomVocabularyState
+import com.mhmdawad.memorizevocabulary.presentation.new_vocabulary.AddVocabularyState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

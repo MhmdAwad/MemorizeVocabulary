@@ -1,4 +1,4 @@
-package com.mhmdawad.memorizevocabulary.presentation
+package com.mhmdawad.memorizevocabulary.presentation.new_vocabulary
 
 import com.mhmdawad.memorizevocabulary.domain.module.VocabularyModule
 

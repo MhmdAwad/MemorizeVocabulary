@@ -59,7 +59,6 @@ class MemorizeViewModel @Inject constructor(
         }
         addVocabularyState = addVocabularyState.copy(isLoading = true)
         viewModelScope.launch {
-            delay(4000L)
             val result = VocabularyModule(
                 englishVocabulary,
                 nativeVocabulary

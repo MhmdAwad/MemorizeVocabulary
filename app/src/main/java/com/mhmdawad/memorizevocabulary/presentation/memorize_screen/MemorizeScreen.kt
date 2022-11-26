@@ -11,7 +11,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.mhmdawad.memorizevocabulary.R
@@ -32,13 +33,13 @@ fun MemorizeScreen(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                backgroundColor = Color.DarkGray,
+                backgroundColor = DarkGray,
                 onClick = {
                 navigator.navigate(AddNewVocabularyDestination())
             }) {
                 Icon(Icons.Filled.Add,
                     null,
-                    tint = Color.White)
+                    tint = White)
             }
         },
         content = {
@@ -55,7 +56,7 @@ fun MemorizeScreen(
                 Text(
                     text = stringResource(id = R.string.app_name),
                     style = Typography.body1,
-                    color = if (isSystemInDarkTheme()) Color.White else Color.DarkGray,
+                    color = if (isSystemInDarkTheme()) White else DarkGray,
                 )
                 Box(modifier = Modifier
                     .fillMaxHeight(),

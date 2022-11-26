@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MemorizeVocabulary</string>
     <string name="no_vocabularies">No vocabularies added yet.</string>
+    <string name="add_new_vocabulary">Add new vocabulary</string>
+    <string name="add_your_native_vocabulary">"Add your native vocabulary.."</string>
+    <string name="add_english_vocabulary">"Add english vocabulary.."</string>
 </resources>

@@ -54,10 +54,14 @@ class MemorizeViewModel @Inject constructor(
         )
     }
 
+    fun removeDB(){
+       viewModelScope.launch {
+           memorizeRepository.deleteAllVocabularies()
+       }
+    }
     fun insertVocabulary(vocabularyModule: VocabularyModule) {
         addVocabularyState = addVocabularyState.copy(isLoading = true)
         viewModelScope.launch {
-            delay(2000L)
             val result = memorizeRepository.insertNewVocabulary(vocabularyModule)
             addVocabularyState = if (result == Constants.VOCABULARY_NOT_INSERTED) {
                 // Not inserted

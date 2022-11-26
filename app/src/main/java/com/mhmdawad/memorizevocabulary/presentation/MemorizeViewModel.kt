@@ -12,6 +12,7 @@ import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.MemorizeScre
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.RandomVocabularyState
 import com.mhmdawad.memorizevocabulary.presentation.new_vocabulary.AddVocabularyState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -23,8 +24,11 @@ class MemorizeViewModel @Inject constructor(
 ) : ViewModel() {
 
     var addVocabularyState by mutableStateOf(AddVocabularyState())
+        private set
     var memorizeState by mutableStateOf(MemorizeScreenState())
+        private set
     var randomVocabularyState by mutableStateOf(RandomVocabularyState())
+        private set
 
     init {
         retrieveAllVocabularies()
@@ -51,24 +55,23 @@ class MemorizeViewModel @Inject constructor(
         }
     }
 
-    fun rotateVocabulary() {
-        randomVocabularyState = randomVocabularyState.copy(
-            showEnglishVocabulary = !randomVocabularyState.showEnglishVocabulary
-        )
-    }
-
-    fun removeDB(){
-       viewModelScope.launch {
-           memorizeRepository.deleteAllVocabularies()
-       }
-    }
-    fun insertVocabulary(vocabularyModule: VocabularyModule) {
+    fun insertVocabulary(englishVocabulary: String, nativeVocabulary: String) {
+        if(englishVocabulary.isBlank() || nativeVocabulary.isBlank()){
+            addVocabularyState = AddVocabularyState(errorMessage = "Please fill in the blanks first.")
+            return
+        }
         addVocabularyState = addVocabularyState.copy(isLoading = true)
         viewModelScope.launch {
-            val result = memorizeRepository.insertNewVocabulary(vocabularyModule)
+            delay(4000L)
+            val result = VocabularyModule(
+                englishVocabulary,
+                nativeVocabulary
+            ).let {
+                memorizeRepository.insertNewVocabulary(it)
+            }
             addVocabularyState = if (result == Constants.VOCABULARY_NOT_INSERTED) {
                 // Not inserted
-                AddVocabularyState(errorMessage = "An error occurred!")
+                AddVocabularyState(errorMessage = "An error occurred. Please try again!")
             } else {
                 // Inserted successfully
                 AddVocabularyState(isInsertedSuccessfully = true)

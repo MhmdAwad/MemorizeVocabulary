@@ -47,9 +47,10 @@ class MemorizeViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
-    fun getRandomVocabulary() {
+    fun getRandomVocabulary(delayTime: Long = 0L) {
         if (memorizeState.isNoVocabularies) return
         viewModelScope.launch {
+            delay(delayTime)
             memorizeState = memorizeState.copy(isLoading = false)
             randomVocabularyState = RandomVocabularyState(memorizeState.vocabularies.random())
         }

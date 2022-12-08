@@ -5,11 +5,13 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import com.mhmdawad.memorizevocabulary.common.CardFace
@@ -19,7 +21,6 @@ import com.mhmdawad.memorizevocabulary.common.CardFace
 fun FlipCard(
     cardFace: CardFace,
     onClick: () -> Unit,
-    onLongClick: () -> Unit,
     modifier: Modifier = Modifier,
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
@@ -39,7 +40,8 @@ fun FlipCard(
             }
             .combinedClickable(
                 onClick = { onClick() },
-                onLongClick = { onLongClick() }
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
             ),
     ) {
         Box(
@@ -50,7 +52,7 @@ fun FlipCard(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                ){
+                ) {
                     front()
                 }
             } else {

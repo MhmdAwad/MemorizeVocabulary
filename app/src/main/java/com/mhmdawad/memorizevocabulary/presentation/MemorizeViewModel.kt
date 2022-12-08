@@ -12,6 +12,7 @@ import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.MemorizeScre
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.RandomVocabularyState
 import com.mhmdawad.memorizevocabulary.presentation.new_vocabulary.AddVocabularyState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -43,9 +44,10 @@ class MemorizeViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
-    fun getRandomVocabulary() {
+    fun getRandomVocabulary(delayTime: Long = 0L) {
         if (memorizeState.isNoVocabularies) return
         viewModelScope.launch {
+            delay(delayTime)
             memorizeState = memorizeState.copy(isLoading = false)
             randomVocabularyState = RandomVocabularyState(memorizeState.vocabularies.random())
         }

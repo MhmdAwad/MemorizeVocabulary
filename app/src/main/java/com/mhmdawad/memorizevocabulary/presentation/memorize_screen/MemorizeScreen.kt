@@ -2,13 +2,13 @@ package com.mhmdawad.memorizevocabulary.presentation.memorize_screen
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
@@ -21,6 +21,10 @@ import com.mhmdawad.memorizevocabulary.presentation.MemorizeViewModel
 import com.mhmdawad.memorizevocabulary.presentation.destinations.AddNewVocabularyDestination
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyCard
 import com.mhmdawad.memorizevocabulary.presentation.memorize_screen.components.VocabularyData
+import com.mhmdawad.memorizevocabulary.presentation.shared.components.ExpandedFloatingActionButton
+import com.mhmdawad.memorizevocabulary.presentation.shared.components.LoadingDialog
+import com.mhmdawad.memorizevocabulary.presentation.shared.components.MultiFabItem
+import com.mhmdawad.memorizevocabulary.presentation.shared.components.MultipleFAB
 import com.mhmdawad.memorizevocabulary.presentation.ui.theme.Typography
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -34,19 +38,21 @@ fun MemorizeScreen(
 ) {
     val randomVocabulary = memorizeViewModel.randomVocabularyState
     val memorizeState = memorizeViewModel.memorizeState
+    val syncState = memorizeViewModel.syncVocabulariesState
+    val scaffoldState = rememberScaffoldState()
 
+    LaunchedEffect(key1 = syncState) {
+        if (syncState.errorMessage.isNotBlank())
+            scaffoldState.snackbarHostState.showSnackbar(syncState.errorMessage)
+
+        if (syncState.isSyncedSuccessfully)
+            scaffoldState.snackbarHostState.showSnackbar("Synced successfully")
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
         floatingActionButton = {
-            FloatingActionButton(
-                backgroundColor = DarkGray,
-                onClick = {
-                    navigator.navigate(AddNewVocabularyDestination())
-                }) {
-                Icon(Icons.Filled.Add,
-                    null,
-                    tint = White)
-            }
+            ExpandedFloatingActionButton(navigator)
         },
         content = {
             Column(
@@ -87,5 +93,10 @@ fun MemorizeScreen(
                     )
                 }
             }
+            if (syncState.isLoading)
+                LoadingDialog()
+
         })
 }
+
+

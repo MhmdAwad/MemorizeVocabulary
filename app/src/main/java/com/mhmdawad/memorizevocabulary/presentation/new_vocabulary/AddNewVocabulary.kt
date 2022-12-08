@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mhmdawad.memorizevocabulary.R
 import com.mhmdawad.memorizevocabulary.presentation.MemorizeViewModel
 import com.mhmdawad.memorizevocabulary.presentation.new_vocabulary.components.VocabularyTextField
+import com.mhmdawad.memorizevocabulary.presentation.shared.components.LoadingDialog
 import com.mhmdawad.memorizevocabulary.presentation.ui.theme.Typography
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -121,23 +122,7 @@ fun AddNewVocabulary(
             )
         }
         if (addVocabularyState.isLoading) {
-            Dialog(
-                onDismissRequest = { },
-                DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
-            ) {
-                Box(
-                    contentAlignment = Center,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .background(
-                            if (isSystemInDarkTheme()) White else DarkGray,
-                            shape = RoundedCornerShape(8.dp))
-                ) {
-                    CircularProgressIndicator(
-                        color = if (isSystemInDarkTheme()) DarkGray else White,
-                    )
-                }
-            }
+           LoadingDialog()
         }
     }
 }

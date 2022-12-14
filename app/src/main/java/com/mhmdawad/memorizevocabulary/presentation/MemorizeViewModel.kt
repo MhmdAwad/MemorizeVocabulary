@@ -50,7 +50,6 @@ class MemorizeViewModel @Inject constructor(
                 } else {
                     memorizeState.copy(isNoVocabularies = true, isLoading = false)
                 }
-                println("??????????????? $memorizeState")
                 getRandomVocabulary()
             }.launchIn(viewModelScope)
     }
@@ -99,10 +98,11 @@ class MemorizeViewModel @Inject constructor(
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
                     val lines = line?.split("<tr")
+                    println("???????>>> $lines")
                     lines?.forEach {
-                        if (it.contains("<td class=\"s0\">") && it.contains("<td class=\"s2\" dir=\"rtl\">")) {
+                        if (it.contains("<td class=\"s0\"") && it.contains("<td class=\"s2\" dir=\"rtl\">")) {
                             val english =
-                                it.substringAfter("<td class=\"s0\">").substringBefore("</td>")
+                                it.substringAfter("<td class=\"s0\" dir=\"ltr\">").substringBefore("</td>")
                             val native = it.substringAfter("<td class=\"s2\" dir=\"rtl\">")
                                 .substringBefore("</td>")
                             vocabularies.add(
